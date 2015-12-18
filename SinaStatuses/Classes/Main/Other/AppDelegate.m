@@ -8,7 +8,9 @@
 
 #import "AppDelegate.h"
 #import "CCTabBarController.h"
-
+#import "CCOAuthViewController.h"
+#import "CCAccountTool.h"
+#import "CCAccount.h"
 @interface AppDelegate ()
 
 @end
@@ -19,7 +21,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[CCTabBarController alloc] init];
+    CCAccount *account = [CCAccountTool account];
+    if (account) {
+        self.window.rootViewController = [[CCTabBarController alloc] init];
+    }else {
+        self.window.rootViewController = [[CCOAuthViewController alloc] init];
+    }
     
     [self.window makeKeyAndVisible];
     return YES;
